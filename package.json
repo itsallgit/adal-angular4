@@ -25,7 +25,7 @@
     "@angular/core": "^4.0.2",
     "@angular/http": "^4.0.2",
     "@angular/platform-browser": "^4.0.2",
-    "adal-angular": "^1.0.14",
+    "adal-angular": "git+https://github.com/itsallgit/azure-activedirectory-library-for-js.git",
     "rxjs": "^5.3.0",
     "zone.js": "^0.8.5"
   },
