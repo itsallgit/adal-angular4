@@ -48,12 +48,18 @@ var Adal4Service = (function () {
         if (!configOptions) {
             throw new Error('You must set config, when calling init.');
         }
-        // redirect and logout_redirect are set to current location by default
-        var existingHash = window.location.hash;
-        var pathDefault = window.location.href;
-        if (existingHash) {
-            pathDefault = pathDefault.replace(existingHash, '');
-        }
+        // ORIGINAL IMPLEMENTATION
+        // // redirect and logout_redirect are set to current location by default
+        // let existingHash = window.location.hash;
+        //
+        // let pathDefault = window.location.href;
+        // if (existingHash) {
+        //   pathDefault = pathDefault.replace(existingHash, '');
+        // }
+        // CUSTOM IMPLEMENTATION
+        // We want to redirect the user to root after a log in by default
+        // (rather than from where they called the init function)
+        var pathDefault = window.location.origin;
         configOptions.redirectUri = configOptions.redirectUri || pathDefault;
         configOptions.postLogoutRedirectUri = configOptions.postLogoutRedirectUri || pathDefault;
         // create instance with given config
@@ -301,9 +307,9 @@ var Adal4Service = (function () {
         }
     };
     ;
+    Adal4Service = __decorate([
+        core_1.Injectable()
+    ], Adal4Service);
     return Adal4Service;
 }());
-Adal4Service = __decorate([
-    core_1.Injectable()
-], Adal4Service);
 exports.Adal4Service = Adal4Service;
