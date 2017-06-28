@@ -6,8 +6,8 @@ import { adal } from 'adal-angular';
 import User = adal.User;
 
 /**
- * 
- * 
+ *
+ *
  * @export
  * @class Adal4Service
  */
@@ -15,8 +15,8 @@ import User = adal.User;
 export class Adal4Service {
 
   /**
-   * 
-   * 
+   *
+   *
    * @private
    * @type {adal.AuthenticationContext}
    * @memberOf Adal4Service
@@ -24,8 +24,8 @@ export class Adal4Service {
   private adalContext: adal.AuthenticationContext;
 
   /**
-   * 
-   * 
+   *
+   *
    * @private
    * @type {Adal4User}
    * @memberOf Adal4Service
@@ -40,16 +40,16 @@ export class Adal4Service {
 
   /**
    * Creates an instance of Adal4Service.
-   * 
+   *
    * @memberOf Adal4Service
    */
   constructor() { }
 
   /**
-   * 
-   * 
-   * @param {adal.Config} configOptions 
-   * 
+   *
+   *
+   * @param {adal.Config} configOptions
+   *
    * @memberOf Adal4Service
    */
   public init(configOptions: adal.Config) {
@@ -57,13 +57,19 @@ export class Adal4Service {
       throw new Error('You must set config, when calling init.');
     }
 
-    // redirect and logout_redirect are set to current location by default
-    let existingHash = window.location.hash;
+    // ORIGINAL IMPLEMENTATION
+    // // redirect and logout_redirect are set to current location by default
+    // let existingHash = window.location.hash;
+    //
+    // let pathDefault = window.location.href;
+    // if (existingHash) {
+    //   pathDefault = pathDefault.replace(existingHash, '');
+    // }
 
-    let pathDefault = window.location.href;
-    if (existingHash) {
-      pathDefault = pathDefault.replace(existingHash, '');
-    }
+    // CUSTOM IMPLEMENTATION
+    // We want to redirect the user to root after a log in by default
+    // (rather than from where they called the init function)
+    let pathDefault = window.location.origin;
 
     configOptions.redirectUri = configOptions.redirectUri || pathDefault;
     configOptions.postLogoutRedirectUri = configOptions.postLogoutRedirectUri || pathDefault;
@@ -78,8 +84,8 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @readonly
    * @type {adal.Config}
    * @memberOf Adal4Service
@@ -89,8 +95,8 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @readonly
    * @type {Adal4User}
    * @memberOf Adal4Service
@@ -100,9 +106,9 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf Adal4Service
    */
   public login(): void {
@@ -110,10 +116,10 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @returns {boolean} 
-   * 
+   *
+   *
+   * @returns {boolean}
+   *
    * @memberOf Adal4Service
    */
   public loginInProgress(): boolean {
@@ -121,9 +127,9 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf Adal4Service
    */
   public logOut(): void {
@@ -131,9 +137,9 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf Adal4Service
    */
   public handleWindowCallback(): void {
@@ -167,11 +173,11 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} resource 
-   * @returns {string} 
-   * 
+   *
+   *
+   * @param {string} resource
+   * @returns {string}
+   *
    * @memberOf Adal4Service
    */
   public getCachedToken(resource: string): string {
@@ -179,11 +185,11 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} resource 
-   * @returns 
-   * 
+   *
+   *
+   * @param {string} resource
+   * @returns
+   *
    * @memberOf Adal4Service
    */
   public acquireToken(resource: string) {
@@ -215,10 +221,10 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @returns {Observable<adal.User>} 
-   * 
+   *
+   *
+   * @returns {Observable<adal.User>}
+   *
    * @memberOf Adal4Service
    */
   public getUser(): Observable<adal.User> {
@@ -235,9 +241,9 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf Adal4Service
    */
   public clearCache(): void {
@@ -245,10 +251,10 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} resource 
-   * 
+   *
+   *
+   * @param {string} resource
+   *
    * @memberOf Adal4Service
    */
   public clearCacheForResource(resource: string): void {
@@ -256,10 +262,10 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} message 
-   * 
+   *
+   *
+   * @param {string} message
+   *
    * @memberOf Adal4Service
    */
   public info(message: string): void {
@@ -267,10 +273,10 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} message 
-   * 
+   *
+   *
+   * @param {string} message
+   *
    * @memberOf Adal4Service
    */
   public verbose(message: string): void {
@@ -278,11 +284,11 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * @param {string} url 
-   * @returns {string} 
-   * 
+   *
+   *
+   * @param {string} url
+   * @returns {string}
+   *
    * @memberOf Adal4Service
    */
   public GetResourceForEndpoint(url: string): string {
@@ -290,9 +296,9 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
-   * 
+   *
+   *
+   *
    * @memberOf Adal4Service
    */
   public refreshDataFromCache() {
@@ -300,11 +306,11 @@ export class Adal4Service {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @private
-   * @param {string} resource 
-   * 
+   * @param {string} resource
+   *
    * @memberOf Adal4Service
    */
   private updateDataFromCache(resource: string): void {
